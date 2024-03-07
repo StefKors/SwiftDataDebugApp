@@ -6,31 +6,64 @@
 //
 
 import XCTest
+import SwiftData
 @testable import SwiftDataDebugApp
 
+@MainActor
 final class SwiftDataDebugAppTests: XCTestCase {
+    let simpleVersionBump: String = """
+diff --git a/package.json b/package.json
+index 09ff520..4f245a9 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "playground",
+-  "version": "2.0.0",
++  "version": "2.0.1",
+   "main": "index.js",
+   "license": "MIT",
+   "dependencies": {
+"""
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    let sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            GitDiff.self
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
         }
+    }()
+
+
+    // We want to check if the first line character is correctly removed.
+    // That's where the `+` or `-` or ` ` (unchanged) is and we will parse that to a specific type.
+    func testSimpleVersionBump() throws {
+        let context = sharedModelContainer.mainContext
+
+        let parsingResults = GitDiffParserParse(unifiedDiff: simpleVersionBump)
+
+        let output = GitDiff.init(
+            addedFile: parsingResults.addedFile,
+            removedFile: parsingResults.removedFile,
+            hunks: parsingResults.hunks,
+            unifiedDiff: simpleVersionBump
+        )
+
+        let firstHunk = output.hunks.first
+        let firstLine = firstHunk?.lines.first
+
+        XCTAssertEqual(output.hunks.count, 1)
+        XCTAssertEqual(firstLine?.type, .context)
+        guard let text = firstLine?.text else {
+            XCTFail("expected text on first line of diff")
+            return
+        }
+
+        XCTAssertEqual(text, "{")
     }
 
 }

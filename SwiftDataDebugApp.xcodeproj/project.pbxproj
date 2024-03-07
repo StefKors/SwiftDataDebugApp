@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		8ADFFE852B95FF5100EB58D8 /* SwiftDataDebugAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFFE842B95FF5100EB58D8 /* SwiftDataDebugAppApp.swift */; };
 		8ADFFE872B95FF5100EB58D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFFE862B95FF5100EB58D8 /* ContentView.swift */; };
-		8ADFFE892B95FF5100EB58D8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFFE882B95FF5100EB58D8 /* Item.swift */; };
+		8ADFFE892B95FF5100EB58D8 /* SwiftDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFFE882B95FF5100EB58D8 /* SwiftDataModels.swift */; };
 		8ADFFE8B2B95FF5200EB58D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ADFFE8A2B95FF5200EB58D8 /* Assets.xcassets */; };
 		8ADFFE8E2B95FF5200EB58D8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ADFFE8D2B95FF5200EB58D8 /* Preview Assets.xcassets */; };
 		8ADFFE992B95FF5200EB58D8 /* SwiftDataDebugAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFFE982B95FF5200EB58D8 /* SwiftDataDebugAppTests.swift */; };
 		8ADFFEA32B95FF5200EB58D8 /* SwiftDataDebugAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFFEA22B95FF5200EB58D8 /* SwiftDataDebugAppUITests.swift */; };
 		8ADFFEA52B95FF5200EB58D8 /* SwiftDataDebugAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFFEA42B95FF5200EB58D8 /* SwiftDataDebugAppUITestsLaunchTests.swift */; };
+		8ADFFEB22B96006900EB58D8 /* GitDiffParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFFEB12B96006900EB58D8 /* GitDiffParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,7 @@
 		8ADFFE812B95FF5100EB58D8 /* SwiftDataDebugApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDataDebugApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ADFFE842B95FF5100EB58D8 /* SwiftDataDebugAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataDebugAppApp.swift; sourceTree = "<group>"; };
 		8ADFFE862B95FF5100EB58D8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8ADFFE882B95FF5100EB58D8 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		8ADFFE882B95FF5100EB58D8 /* SwiftDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataModels.swift; sourceTree = "<group>"; };
 		8ADFFE8A2B95FF5200EB58D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8ADFFE8D2B95FF5200EB58D8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8ADFFE8F2B95FF5200EB58D8 /* SwiftDataDebugApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftDataDebugApp.entitlements; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		8ADFFE9E2B95FF5200EB58D8 /* SwiftDataDebugAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftDataDebugAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ADFFEA22B95FF5200EB58D8 /* SwiftDataDebugAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataDebugAppUITests.swift; sourceTree = "<group>"; };
 		8ADFFEA42B95FF5200EB58D8 /* SwiftDataDebugAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataDebugAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8ADFFEB12B96006900EB58D8 /* GitDiffParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitDiffParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +101,8 @@
 			children = (
 				8ADFFE842B95FF5100EB58D8 /* SwiftDataDebugAppApp.swift */,
 				8ADFFE862B95FF5100EB58D8 /* ContentView.swift */,
-				8ADFFE882B95FF5100EB58D8 /* Item.swift */,
+				8ADFFE882B95FF5100EB58D8 /* SwiftDataModels.swift */,
+				8ADFFEB12B96006900EB58D8 /* GitDiffParser.swift */,
 				8ADFFE8A2B95FF5200EB58D8 /* Assets.xcassets */,
 				8ADFFE8F2B95FF5200EB58D8 /* SwiftDataDebugApp.entitlements */,
 				8ADFFE8C2B95FF5200EB58D8 /* Preview Content */,
@@ -262,8 +265,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ADFFEB22B96006900EB58D8 /* GitDiffParser.swift in Sources */,
 				8ADFFE872B95FF5100EB58D8 /* ContentView.swift in Sources */,
-				8ADFFE892B95FF5100EB58D8 /* Item.swift in Sources */,
+				8ADFFE892B95FF5100EB58D8 /* SwiftDataModels.swift in Sources */,
 				8ADFFE852B95FF5100EB58D8 /* SwiftDataDebugAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

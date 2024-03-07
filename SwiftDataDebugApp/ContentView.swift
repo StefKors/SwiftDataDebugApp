@@ -10,50 +10,107 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var diffs: [GitDiff]
+
+    private let explainer: String = """
+Hi there,
+
+This is an demo project that parses a git diff string into a SwiftData representation. When assigning a value to a SwiftData relationship it crashes. There is almost no debug information available about what causes the crash in SwiftData or how to resolve it.
+
+Press the button below to trigger the crash, or checkout `SwiftDataDebugAppTests.swift` for a unit test
+
+Tested on:
+- `Xcode Version 15.3 (15E5202a)`
+- MacBook Pro 14 M2 Pro
+- Sonoma 14.3 (23D56)
+"""
+
+    private let simpleVersionBump: String = """
+diff --git a/package.json b/package.json
+index 09ff520..4f245a9 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "playground",
+-  "version": "2.0.0",
++  "version": "2.0.1",
+   "main": "index.js",
+   "license": "MIT",
+   "dependencies": {
+"""
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
+        VStack {
+            GroupBox {
+                Text(explainer)
+
+
             }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+            Button("Parse diff & Crash") {
+                parse()
             }
-        } detail: {
-            Text("Select an item")
+
+            List(diffs) { diff in
+                GroupBox("diff") {
+                    VStack(alignment: .leading) {
+                        Text(diff.addedFile)
+                        Text(diff.hunks.debugDescription)
+
+                        ForEach(diff.hunks) { hunk in
+                            GroupBox("hunk") {
+                                Text(hunk.header)
+
+                                ForEach(hunk.lines) { line in
+                                    GroupBox("line") {
+                                        HStack {
+                                            Text(line.type.rawValue)
+                                            Text(line.oldLineNumber?.description ?? "nil")
+                                            Text(line.newLineNumber?.description ?? "nil")
+                                            Text(line.text)
+                                            Spacer()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }.contextMenu(ContextMenu(menuItems: {
+                    Button("Delete", role: .destructive) {
+                        withAnimation {
+                            modelContext.delete(diff)
+                        }
+                    }
+                }))
+            }
         }
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
+    private func parse() {
+        let parsingResults = GitDiffParserParse(unifiedDiff: simpleVersionBump)
 
-    private func deleteItems(offsets: IndexSet) {
+        let output = GitDiff.init(
+            addedFile: parsingResults.addedFile,
+            removedFile: parsingResults.removedFile,
+            hunks: parsingResults.hunks,
+            unifiedDiff: simpleVersionBump
+        )
+
+
+        let firstHunk = output.hunks.first // Crash
+        let firstLine = firstHunk?.lines.first
+
+        print(firstHunk)
+        print(firstLine)
+
         withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+            modelContext.insert(output)
         }
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: GitDiff.self, inMemory: true)
 }
