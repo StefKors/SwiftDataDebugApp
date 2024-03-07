@@ -49,6 +49,8 @@
 		8ADFFEA22B95FF5200EB58D8 /* SwiftDataDebugAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataDebugAppUITests.swift; sourceTree = "<group>"; };
 		8ADFFEA42B95FF5200EB58D8 /* SwiftDataDebugAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataDebugAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8ADFFEB12B96006900EB58D8 /* GitDiffParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitDiffParser.swift; sourceTree = "<group>"; };
+		8AE8A74D2B99BE44002B3C9E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8AE8A74E2B99BE59002B3C9E /* feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feedback.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,8 @@
 		8ADFFE782B95FF5100EB58D8 = {
 			isa = PBXGroup;
 			children = (
+				8AE8A74E2B99BE59002B3C9E /* feedback.png */,
+				8AE8A74D2B99BE44002B3C9E /* README.md */,
 				8ADFFE832B95FF5100EB58D8 /* SwiftDataDebugApp */,
 				8ADFFE972B95FF5200EB58D8 /* SwiftDataDebugAppTests */,
 				8ADFFEA12B95FF5200EB58D8 /* SwiftDataDebugAppUITests */,
